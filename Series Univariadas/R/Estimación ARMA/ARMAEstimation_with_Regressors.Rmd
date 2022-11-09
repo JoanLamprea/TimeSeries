@@ -67,10 +67,10 @@ Note que en efecto hay una estacionalidad de periodo $s=12$.
 ```{r ciclo unicamente}
 library(fable)
 ajuste<-aus_cafe%>%model(
-  `FourierK=1`=ARIMA(diff_log_Turnover~fourier(K=1)+pdq(0,0,0)+PDQ(0,0,0),),
+  `FourierK=1`=ARIMA(diff_log_Turnover~fourier(K=1)+pdq(0,0,0)+PDQ(0,0,0)),
   `FourierK=2`=ARIMA(diff_log_Turnover~fourier(K=2)+pdq(0,0,0)+PDQ(0,0,0)),
   `FourierK=3`=ARIMA(diff_log_Turnover~fourier(K=3)+pdq(0,0,0)+PDQ(0,0,0)),
-  `Dummy`=ARIMA(diff_log_Turnover~season()+pdq(0,0,0)+PDQ(0,0,0))                              )
+  `Dummy`=ARIMA(diff_log_Turnover~season()+pdq(0,0,0)+PDQ(0,0,0)))
 ## Podemos agregar la opción fixed como una lista dentro de ARIMA, por ejemplo:
 ###fixed = list(ar1 = 0.3, ma2 = 0).
 
@@ -173,7 +173,7 @@ ajuste_final<-aus_cafe%>%model(
   `Dummy`=ARIMA(log(Turnover)~season()+pdq(1,1,0)+PDQ(0,0,0))                              )
 ## Podemos agregar la opción fixed como una lista dentro de ARIMA, por ejemplo:
 ###fixed = list(ar1 = 0.3, ma2 = 0).
-
+class(aus_cafe)
 ajuste_final
 glance(ajuste)
 

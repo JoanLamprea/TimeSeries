@@ -211,7 +211,7 @@ fit_elecequip_tsibble =elecequip_tsibble%>%
     robust = TRUE),NAIVE(season_adjust)))
 
 fit_elecequip_tsibble%>%fabletools::forecast()%>%autoplot(elecequip_tsibble)+ labs(y=" a",title=" b")  
-
+class(fit_elecequip_tsibble)
 Pronostico<-fit_elecequip_tsibble%>%fabletools::forecast()  
 Pronostico
 ###Por defecto hace el pronóstico para el doble del ciclo estacional 
@@ -236,7 +236,7 @@ HWAP
 #####
 summary(HWAP_1)
 ####
-predictionHWAP_1=forecast::forecast(HWAP,h=12,level =0.95,lambda = 0)
+predictionHWAP_1=forecast::forecast(HWAP,h=12,level =0.95,lambda = 0, biasadj = FALSE)
 predictionHWAP_1
 plot(predictionHWAP_1)
 predictionHWAP_2=predict(HWAP,n.ahead = 12, prediction.interval = T, level = 0.95)
@@ -299,9 +299,9 @@ library(tidymodels)
 ###Creación del objeto sibble
 lAirPass_tbl<-as_tibble(as_tsibble(lAirPass))
 lAirPass_tbl$index=as.Date(lAirPass_tbl$index)
-lAirPass_tbl=rename(lAirPass_tbl,Fecha=index,logAirpass=value)
+  lAirPass_tbl=rename(lAirPass_tbl,Fecha=index,logAirpass=value)
 lAirPass_tbl<-lAirPass_tbl%>%mutate(Airpass=exp(logAirpass))
-
+class(lAirPass)
 lAirPass_tbl
 ###División en entrenamiento y prueba
 splits_lAirPass_tbl=timetk::time_series_split(lAirPass_tbl,date_var=Fecha,assess = 12,cumulative = TRUE)
@@ -490,6 +490,7 @@ lserie=length(lAirPass)
 ntrain=trunc(length(lAirPass)*0.85)
 ntrain
 time(lAirPass)
+class(lAirPass)
 time(lAirPass)[ntrain]###Me entrega la ultima fecha de la posición ntrain
 train=window(lAirPass,end=time(lAirPass)[ntrain])
 test=window(lAirPass,start=time(lAirPass)[ntrain]+1/12)##1/12 porque es la fracción que corresponde a un mes

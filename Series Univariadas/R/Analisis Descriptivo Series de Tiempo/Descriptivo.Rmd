@@ -117,6 +117,7 @@ o mas específicamente
 $$y_t=\beta_0+\beta_1 t +a_t$$
 ```{r chicken2}
 summary(fit <- lm(chicken~time(chicken), na.action=NULL))
+class(chicken)
 plot(chicken, ylab="centavos por libra") 
 abline(fit,col = "red") # Se añade la recta ajusta
 ###Eliminamos la tendencia con la predicción la recta
@@ -499,6 +500,7 @@ Voy enfocarme en un periodo de la serie de desempleo.
            Xgrid = TRUE,
 Ygrid = TRUE)
 ts_info(unemployment)
+class(unemployment)
 ```
 * El primer ciclo ocurrió entre 1990 y 2000, que estuvo cerca de un ciclo de 11 años.
 * El segundo ciclo comenzó en 2000 y finalizó en 2007, que fue un ciclo de 7 años.
@@ -550,6 +552,7 @@ Pueden haber múltiples estacionalidades(por lo general ocurren en series de alt
 Vamos a trabajar la base datos relacionada con el sistema nacional de transmisión de electricidad del Reino Unido. Más específicamente con la demanda de energía de forma horaria.
 
 ```{r mas acerca de estacionalidad}
+
 library(UKgrid)
 require(TSstudio)
 require(timetk)

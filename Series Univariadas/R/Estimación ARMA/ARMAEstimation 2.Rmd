@@ -66,7 +66,7 @@ forecast::Arima(y,order=c(2,0,1),include.mean=FALSE,fixed=c(0,NA,NA))
 ```{r importacion}
 
 #######Tipos de interés interbancario a un año medido mensualmente
-tipos88 <- read.table("~/Documents/GitHub/TimeSeries/Series Univariadas/R/Estimación ARMA/tipos88.dat", quote="\"", comment.char="")
+tipos88 <- read.table("C:/Users/Personal/Downloads/TimeSeries-master/Series Univariadas/Bases de Datos/Estacionarias/tipos88.dat", quote="\"", comment.char="")
 Intanual=tipos88$V5  #Tipo de interés Anual
 ?ts
 plot(as.ts(Intanual))
@@ -100,7 +100,7 @@ summary(ARPURO)
 
 
 ```{r estimacion valores fijos}
-ARPURO_fixed=stats::arima(sercamrelint,order=c(3,0,0),include.mean = FALSE,fixed=c(NA,0,NA),method = c("CSS-ML"))
+ARPURO_fixed=stats::arima(sercamrelint,order=c(3,0,0),include.mean = FALSE,fixed=c(NA,0,NA),method = c("CSS-ML"),transform.pars = FALSE)
 coeftest(ARPURO_fixed)  
 
 ARPURO_fixed1=forecast::Arima(sercamrelint,order=c(3,0,0),include.mean = FALSE,fixed=c(NA,0,NA),method = c("CSS-ML"))
@@ -108,6 +108,7 @@ coeftest(ARPURO_fixed1)
 summary(ARPURO_fixed1)
 ###Note que uno usa la función arima y el otro ARIMA
 ```
+
 ###Antes de hacer el pronóstico se debería verficar los supuestos.
 ```{r Pronostico}
 PronosticosAR12=forecast(ARPURO_fixed1,h=12,level=0.95)  ###Es mejor usar el objeto de la función ARIMA
@@ -202,7 +203,7 @@ for(i in 1:ntest)
 }
 fcmat
 ECM=mean(fcmat^2)
-
+ECM
 ##Falta elevar al cudrado y hacer le promedio.
 ```
 

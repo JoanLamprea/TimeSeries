@@ -18,6 +18,8 @@ library(urca)
 library(forecast)
 library(tseries)
 library(lmtest)
+install.packages("uroot")
+install.packages("fUnitRoots")
 library(uroot)
 library(fUnitRoots)
 
